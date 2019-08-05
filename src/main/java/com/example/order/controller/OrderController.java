@@ -2,23 +2,31 @@ package com.example.order.controller;
 
 import com.example.order.VO.ResultVO;
 import com.example.order.converter.OrderForm2OrderDTOConverter;
+import com.example.order.dataobject.Student;
 import com.example.order.dto.OrderDTO;
 import com.example.order.enums.ResultEnum;
 import com.example.order.exception.OrderException;
 import com.example.order.form.OrderForm;
 import com.example.order.service.OrderService;
+import com.example.order.utils.ExportExcelUtil;
+import com.example.order.utils.ExportExcelWrapper;
 import com.example.order.utils.ResultVOUtil;
+import javafx.scene.Camera;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -70,6 +78,21 @@ public class OrderController {
     public ResultVO<OrderDTO> finish(@RequestParam("orderId") String orderId)
     {
         return ResultVOUtil.success(orderService.finish(orderId));
+    }
+
+    @RequestMapping("/get/excel")
+    public void getExcel(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        // 准备数据
+        List<Student> list = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            list.add(new Student(111,"张三asdf","男"));
+            list.add(new Student(111,"李四asd","男"));
+            list.add(new Student(111,"王五","女"));
+        }
+        String[] columnNames = { "ID", "姓名", " 性别"};
+        String fileName = "excel1";
+        ExportExcelWrapper<Student> util = new ExportExcelWrapper<Student>();
+        util.exportExcel(fileName, fileName, columnNames, list, response, ExportExcelUtil.EXCEL_FILE_2003);
     }
 
 

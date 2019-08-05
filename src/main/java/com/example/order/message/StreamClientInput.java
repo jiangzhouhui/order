@@ -12,15 +12,15 @@ import org.springframework.messaging.SubscribableChannel;
  */
 public interface StreamClientInput {
 
-    String INPUT = "myMessage";
-
-    String INPUT2 = "myMessage2";
+//    String INPUT = "myMessage";
+//
+//    String INPUT2 = "myMessage2";
 
 
 //    String InputTwo="InputTwo";
 
-    @Input(StreamClientInput.INPUT)
-    SubscribableChannel input();
+//    @Input(StreamClientInput.INPUT)
+//    SubscribableChannel input();
 
 
 //

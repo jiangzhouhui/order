@@ -26,10 +26,10 @@ public class SendMessageController {
     /**
      * 发送 orderDTO对象
      */
-    @GetMapping("/sendMessage")
-    public void process() {
-        OrderDTO orderDTO = new OrderDTO();
-        orderDTO.setOrderId("123456");
-        streamClient.input().send(MessageBuilder.withPayload(orderDTO).build());
-    }
+//    @GetMapping("/sendMessage")
+//    public void process() {
+//        OrderDTO orderDTO = new OrderDTO();
+//        orderDTO.setOrderId("123456");
+//        streamClient.input().send(MessageBuilder.withPayload(orderDTO).build());
+//    }
 }
